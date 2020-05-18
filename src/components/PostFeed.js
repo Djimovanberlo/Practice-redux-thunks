@@ -38,7 +38,12 @@ export default function PostsFeed() {
           return (
             <div key={post.id}>
               <h5>{post.title}</h5>
-              <p>{post.content}</p>
+              <p>
+                {moment(post.createdAt).format("DD-MM-YYYY")} -{" "}
+                {post.tags.map((tag) => {
+                  return tag.tag;
+                })}
+              </p>
             </div>
           );
         })}
