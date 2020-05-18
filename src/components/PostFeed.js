@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import moment from "moment";
+import { useDispatch } from "react-redux";
+import { postsFetched } from "../store/reducer";
 
-const API_URL = `https://codaisseur-coders-network.herokuapp.com`;
+// const API_URL = `https://codaisseur-coders-network.herokuapp.com`;
 
 export default function PostsFeed() {
   const [data, setData] = useState({
     loading: true,
     posts: [],
   });
+
+  const dispatch = useDispatch();
 
   async function fetchNext5Posts() {
     setData({ ...data, loading: true });
@@ -18,6 +22,8 @@ export default function PostsFeed() {
     );
     const morePosts = response.data.rows;
     console.log(response.data.rows);
+    console.log("aa", postsFetched());
+    dispatch(postsFetched(morePosts));
 
     setData({
       loading: false,
